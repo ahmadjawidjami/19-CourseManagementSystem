@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:action="@{/student/register}" method="post" th:object="${student}">
+    First Name: <input type="text" th:field="*{firstName}"/> <br>
+    Last Name: <input type="text" th:field="*{lastName}"/> <br>
+    City: <input type="text" th:field="*{city}"/> <br>
+    Street: <input type="text" th:field="*{street}"/> <br>
+    Door#: <input type="text" th:field="*{doorNumber}"/> <br>
+    Birth Date: <input type="date" th:field="*{birthDate}"/> <br>
+
+    <button type="submit">Register</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>City</th>
+        <th>Street</th>
+        <th>Door Number</th>
+        <th>Birth Date</th>
+    </tr>
+
+    <tr th:each="student: ${students}">
+        <td th:text="${student.id}"></td>
+        <td th:text="${student.firstName}"></td>
+        <td th:text="${student.lastName}"></td>
+        <td th:text="${student.city}"></td>
+        <td th:text="${student.Street}"></td>
+        <td th:text="${student.doorNumber}"></td>
+        <td th:text="${student.birthDate}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
