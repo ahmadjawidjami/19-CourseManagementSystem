@@ -20,4 +20,14 @@ public class StudentServiceImpl implements StudentService {
     public Object findAll() {
         return studentRepository.findAll();
     }
+
+    @Override
+    public Student findStudentById(Long id) {
+        return studentRepository.getOne(id);
+    }
+
+    @Override
+    public void deleteStudentById(Long id) {
+        studentRepository.deleteById(id);
+    }
 }
