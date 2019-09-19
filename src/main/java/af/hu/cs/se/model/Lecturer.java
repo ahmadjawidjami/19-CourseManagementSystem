@@ -16,6 +16,8 @@ public class Lecturer {
 
     private Set<Student> students;
 
+    private Set<Course> courses;
+
     @Id
     @GeneratedValue
     public Long getId() {
@@ -60,5 +62,16 @@ public class Lecturer {
 
     public void setStudents(Set<Student> students) {
         this.students = students;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "courses_lectures", joinColumns = @JoinColumn(name = "lecturer_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 }

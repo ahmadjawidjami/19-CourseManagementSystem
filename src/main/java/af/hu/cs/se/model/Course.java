@@ -16,6 +16,8 @@ public class Course {
 
     private Set<Student> students;
 
+    private Set<Lecturer> lecturers;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -51,5 +53,14 @@ public class Course {
 
     public void setStudents(Set<Student> students) {
         this.students = students;
+    }
+
+    @ManyToMany(mappedBy = "courses")
+    public Set<Lecturer> getLecturers() {
+        return lecturers;
+    }
+
+    public void setLecturers(Set<Lecturer> lecturers) {
+        this.lecturers = lecturers;
     }
 }
