@@ -1,9 +1,7 @@
 package af.hu.cs.se.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Lecturer {
@@ -14,6 +12,9 @@ public class Lecturer {
     private String firstName;
     private String lastName;
 
+    private Subject subject;
+
+    private Set<Student> students;
 
     @Id
     @GeneratedValue
@@ -39,5 +40,25 @@ public class Lecturer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "subject_id")
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "lecturers_students")
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 }

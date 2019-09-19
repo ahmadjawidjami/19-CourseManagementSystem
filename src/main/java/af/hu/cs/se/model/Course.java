@@ -1,6 +1,8 @@
 package af.hu.cs.se.model;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Course {
@@ -9,6 +11,10 @@ public class Course {
     private Long id;
 
     private String courseName;
+
+    private Set<Subject> subjects;
+
+    private Set<Student> students;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,5 +32,24 @@ public class Course {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    @OneToMany(mappedBy = "course")
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "courses_students")
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 }

@@ -2,6 +2,7 @@ package af.hu.cs.se.model;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Student {
@@ -16,6 +17,10 @@ public class Student {
     private String street;
     private Integer doorNumber;
     private String birthDate;
+
+    private Set<Course> courses;
+
+    private Set<Lecturer> lecturers;
 
 
     @Id
@@ -76,5 +81,21 @@ public class Student {
         this.birthDate = birthDate;
     }
 
+    @ManyToMany(mappedBy = "students")
+    public Set<Course> getCourses() {
+        return courses;
+    }
 
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
+    }
+
+    @ManyToMany(mappedBy = "students")
+    public Set<Lecturer> getLecturers() {
+        return lecturers;
+    }
+
+    public void setLecturers(Set<Lecturer> lecturers) {
+        this.lecturers = lecturers;
+    }
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2><a th:href="@{/course/register}">Add Course</a></h2>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Course Name</th>
+
+        <th colspan="2">Action</th>
+    </tr>
+
+    <tr th:each="course: ${courses}">
+        <td th:text="${course.id}"></td>
+        <td th:text="${course.courseName}"></td>
+
+        <td><a th:href="@{'/course/edit/' + ${course.id} }">Edit</a></td>
+        <td>
+            <form th:action="@{/course/delete/{id}(id = ${course.id})}" method="post">
+                <button type="submit" onclick="return confirm('Do you really want ot delete?')">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

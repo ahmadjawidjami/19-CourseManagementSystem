@@ -10,6 +10,10 @@ public class Subject {
 
     private String subjectName;
 
+    private Course course;
+
+    private Lecturer lecturer;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -26,5 +30,24 @@ public class Subject {
 
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    @OneToOne(mappedBy = "subject")
+    public Lecturer getLecturer() {
+        return lecturer;
+    }
+
+    public void setLecturer(Lecturer lecturer) {
+        this.lecturer = lecturer;
     }
 }
