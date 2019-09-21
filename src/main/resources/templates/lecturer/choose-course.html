@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:action="@{/lecturer/{id}/set-course(id = ${lecturerId})}" method="post" th:object="${chooseCourse}">
+
+    <ul th:each="course: ${courses}">
+        <li>
+            <input type="checkbox" th:field="*{courseIds}" th:value="${course.id}">
+            <label th:text="${course.courseName}"></label>
+        </li>
+    </ul>
+
+    <button type="submit">Register</button>
+</form>
+
+</body>
+</html>

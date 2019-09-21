@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Subject {
 
-    @Column(name = "subject_id")
+
     private Long id;
 
     private String subjectName;

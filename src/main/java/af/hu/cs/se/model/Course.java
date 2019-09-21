@@ -7,7 +7,7 @@ import java.util.Set;
 @Entity
 public class Course {
 
-    @Column(name = "course_id")
+
     private Long id;
 
     private String courseName;
@@ -46,7 +46,8 @@ public class Course {
     }
 
     @ManyToMany
-    @JoinTable(name = "courses_students")
+    @JoinTable(name = "courses_students", joinColumns = @JoinColumn(name = "course_id"),
+    inverseJoinColumns = @JoinColumn(name = "student_id"))
     public Set<Student> getStudents() {
         return students;
     }

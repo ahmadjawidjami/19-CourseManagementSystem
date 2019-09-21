@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>Details for <span th:text="${lecturer.firstName} + ' ' + ${lecturer.lastName}"></span></h2>
+
+<h2><a th:href="@{/lecturer/{id}/set-course(id = ${lecturerId})}">Choose Courses</a></h2>
+
+</body>
+</html>

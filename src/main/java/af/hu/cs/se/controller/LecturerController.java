@@ -1,13 +1,17 @@
 package af.hu.cs.se.controller;
 
+import af.hu.cs.se.model.ChooseCourse;
+import af.hu.cs.se.model.Course;
 import af.hu.cs.se.model.Lecturer;
-import af.hu.cs.se.model.Student;
+import af.hu.cs.se.service.CourseService;
 import af.hu.cs.se.service.LecturerService;
-import af.hu.cs.se.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class LecturerController {
@@ -15,12 +19,15 @@ public class LecturerController {
     @Autowired
     private LecturerService lecturerService;
 
+    @Autowired
+    private CourseService courseService;
+
     @GetMapping("/lecturer/register")
     public String getRegisterPage(Model model) {
 
         model.addAttribute("lecturer", new Lecturer());
 
-        return "lecturer-form";
+        return "lecturer/lecturer-form";
     }
 
 
@@ -36,7 +43,7 @@ public class LecturerController {
     public String getStudentListPage(Model model) {
 
         model.addAttribute("lecturers", lecturerService.findAll());
-        return "lecturer-list";
+        return "lecturer/lecturer-list";
     }
 
     @GetMapping("/lecturer/edit/{id}")
@@ -44,7 +51,7 @@ public class LecturerController {
         Lecturer lecturer = lecturerService.findLecturerById(id);
         model.addAttribute("lecturer", lecturer);
 
-        return "lecturer-form";
+        return "lecturer/lecturer-form";
 
     }
 
@@ -54,5 +61,25 @@ public class LecturerController {
         lecturerService.deleteLecturerById(id);
 
         return "redirect:/lecturer/list";
+    }
+
+    @GetMapping("/lecturer/{id}/details")
+    public String getDetails(@PathVariable Long id, Model model) {
+
+        Lecturer lecturer = lecturerService.findLecturerById(id);
+        model.addAttribute("lecturer", lecturer);
+        model.addAttribute("lecturerId", id);
+        return "lecturer/lecturer-detail";
+    }
+
+    @GetMapping("/lecturer/{id}/set-course")
+    public String chooseCourses(@PathVariable Long id, Model model) {
+        model.addAttribute("lecturerId", id);
+
+        List<Course> courses = courseService.findAll();
+
+        model.addAttribute("courses", courses);
+        model.addAttribute("chooseCourse", new ChooseCourse());
+        return "lecturer/choose-course";
     }
 }

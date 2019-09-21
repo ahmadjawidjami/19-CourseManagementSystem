@@ -7,7 +7,7 @@ import java.util.Set;
 @Entity
 public class Student {
 
-    @Column(name = "student_id")
+
     private Long id;
 
     private String firstName;
@@ -21,7 +21,6 @@ public class Student {
     private Set<Course> courses;
 
     private Set<Lecturer> lecturers;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
