@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class LecturerController {
@@ -69,6 +71,8 @@ public class LecturerController {
         Lecturer lecturer = lecturerService.findLecturerById(id);
         model.addAttribute("lecturer", lecturer);
         model.addAttribute("lecturerId", id);
+
+        model.addAttribute("courses", lecturer.getCourses());
         return "lecturer/lecturer-detail";
     }
 
@@ -81,5 +85,20 @@ public class LecturerController {
         model.addAttribute("courses", courses);
         model.addAttribute("chooseCourse", new ChooseCourse());
         return "lecturer/choose-course";
+    }
+
+    @PostMapping("/lecturer/{id}/set-course")
+    public String chooseCourses(@PathVariable Long id, @ModelAttribute ChooseCourse chooseCourse) {
+
+        Lecturer lecturer = lecturerService.findLecturerById(id);
+        Set<Course> courses = new HashSet<>();
+        for (Long currentId :chooseCourse.getCourseIds()) {
+            courses.add(courseService.findCourseById(currentId));
+        }
+
+        lecturer.setCourses(courses);
+        lecturerService.saveLecturer(lecturer);
+
+        return "redirect:/lecturer/" + id + "/details";
     }
 }

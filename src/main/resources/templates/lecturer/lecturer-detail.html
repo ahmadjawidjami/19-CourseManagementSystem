@@ -10,5 +10,19 @@
 
 <h2><a th:href="@{/lecturer/{id}/set-course(id = ${lecturerId})}">Choose Courses</a></h2>
 
+<h2>Courses</h2>
+
+<table border="1">
+    <tr>
+        <th>Course ID</th>
+        <th>Course Name</th>
+    </tr>
+
+    <tr th:each="course: ${courses}">
+        <td th:text="${course.id}"></td>
+        <td th:text="${course.courseName}"></td>
+    </tr>
+</table>
+
 </body>
 </html>
