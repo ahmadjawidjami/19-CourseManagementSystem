@@ -1,7 +1,6 @@
 package af.hu.cs.se.controller;
 
 import af.hu.cs.se.model.Course;
-import af.hu.cs.se.model.Student;
 import af.hu.cs.se.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ public class CourseController {
 
         model.addAttribute("course", new Course());
 
-        return "course-form";
+        return "course/course-form";
     }
 
 
@@ -35,7 +34,7 @@ public class CourseController {
     public String getCourseListPage(Model model) {
 
         model.addAttribute("courses", courseService.findAll());
-        return "course-list";
+        return "course/course-list";
     }
 
     @GetMapping("/course/edit/{id}")
@@ -43,7 +42,7 @@ public class CourseController {
         Course course = courseService.findCourseById(id);
         model.addAttribute("course", course);
 
-        return "course-form";
+        return "course/course-form";
 
     }
 
@@ -53,5 +52,14 @@ public class CourseController {
         courseService.deleteCourseById(id);
 
         return "redirect:/course/list";
+    }
+
+    @GetMapping("/course/{id}/details")
+    public String getDetails(@PathVariable Long id, Model model) {
+        Course course = courseService.findCourseById(id);
+        model.addAttribute("course", course);
+        model.addAttribute("lecturers", course.getLecturers());
+
+        return "course/course-details";
     }
 }

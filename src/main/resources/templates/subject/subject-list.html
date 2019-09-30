@@ -12,12 +12,14 @@
     <tr>
         <th>ID</th>
         <th>Subject Name</th>
+        <th>Course Name</th>
         <th colspan="2">Action</th>
     </tr>
 
     <tr th:each="subject: ${subjects}">
         <td th:text="${subject.id}"></td>
         <td th:text="${subject.subjectName}"></td>
+        <td th:text="${subject.course.courseName}"></td>
         <td><a th:href="@{'/subject/edit/' + ${subject.id} }">Edit</a></td>
         <td>
             <form th:action="@{/subject/delete/{id}(id = ${subject.id})}" method="post">

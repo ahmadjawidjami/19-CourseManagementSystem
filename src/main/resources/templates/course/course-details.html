@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>Details for Course: <span th:text="${course.courseName}"></span></h2>
+
+
+<h2>Lecturers</h2>
+
+<table border="1">
+    <tr>
+        <th>Lecturer ID</th>
+        <th>Lecturer First Name</th>
+        <th>Lecturer Last Name</th>
+    </tr>
+
+    <tr th:each="lecturer: ${lecturers}">
+        <td th:text="${lecturer.id}"></td>
+        <td th:text="${lecturer.firstName}"></td>
+        <td th:text="${lecturer.lastName}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

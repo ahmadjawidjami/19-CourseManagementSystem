@@ -18,7 +18,7 @@
 
     <tr th:each="course: ${courses}">
         <td th:text="${course.id}"></td>
-        <td th:text="${course.courseName}"></td>
+        <td><a th:href="@{/course/{id}/details(id = ${course.id})}"><span th:text="${course.courseName}"></span></a></td>
 
         <td><a th:href="@{'/course/edit/' + ${course.id} }">Edit</a></td>
         <td>

@@ -1,9 +1,9 @@
 package af.hu.cs.se.controller;
 
 
-import af.hu.cs.se.model.Student;
+import af.hu.cs.se.model.Course;
 import af.hu.cs.se.model.Subject;
-import af.hu.cs.se.service.StudentService;
+import af.hu.cs.se.service.CourseService;
 import af.hu.cs.se.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,18 +16,24 @@ public class SubjectController {
     @Autowired
     private SubjectService subjectService;
 
+    @Autowired
+    private CourseService courseService;
+
     @GetMapping("/subject/register")
     public String getRegisterPage(Model model) {
 
         model.addAttribute("subject", new Subject());
 
-        return "subject-form";
+        model.addAttribute("courses", courseService.findAll());
+
+        return "subject/subject-form";
     }
 
 
     @PostMapping("/subject/register")
-    public String register(@ModelAttribute Subject subject) {
-
+    public String register(@ModelAttribute Subject subject, @RequestParam Long courseId) {
+        Course course = courseService.findCourseById(courseId);
+        subject.setCourse(course);
         subjectService.saveSubject(subject);
 
         return "redirect:/subject/list";
@@ -37,7 +43,7 @@ public class SubjectController {
     public String getSubjectListPage(Model model) {
 
         model.addAttribute("subjects", subjectService.findAll());
-        return "subject-list";
+        return "subject/subject-list";
     }
 
     @GetMapping("/subject/edit/{id}")
@@ -45,7 +51,9 @@ public class SubjectController {
         Subject subject = subjectService.findSubjectById(id);
         model.addAttribute("subject", subject);
 
-        return "subject-form";
+        model.addAttribute("courses", courseService.findAll());
+
+        return "subject/subject-form";
 
     }
 

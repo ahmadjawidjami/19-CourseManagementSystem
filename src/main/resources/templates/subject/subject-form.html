@@ -10,6 +10,14 @@
     <input type="hidden" th:field="*{id}">
     Subject Name: <input type="text" th:field="*{subjectName}"/> <br>
 
+    <label>Course Name</label>
+    <select name="courseId">
+        <th:block th:each="course : ${courses}">
+            <option th:value="${course.id}"><span th:text="${course.courseName}"></span></option>
+        </th:block>
+
+    </select>
+
     <button type="submit">Register</button>
 </form>
 
