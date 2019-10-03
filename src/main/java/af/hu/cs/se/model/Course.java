@@ -14,7 +14,9 @@ public class Course {
 
     private Set<Subject> subjects;
 
-    private Set<Student> students;
+    //private Set<Student> students;
+
+    private Set<CourseAttendance> courseAttendances;
 
     private Set<Lecturer> lecturers;
 
@@ -45,15 +47,25 @@ public class Course {
         this.subjects = subjects;
     }
 
-    @ManyToMany
-    @JoinTable(name = "courses_students", joinColumns = @JoinColumn(name = "course_id"),
-    inverseJoinColumns = @JoinColumn(name = "student_id"))
-    public Set<Student> getStudents() {
-        return students;
+//    @ManyToMany
+//    @JoinTable(name = "courses_students", joinColumns = @JoinColumn(name = "course_id"),
+//    inverseJoinColumns = @JoinColumn(name = "student_id"))
+//    public Set<Student> getStudents() {
+//        return students;
+//    }
+//
+//    public void setStudents(Set<Student> students) {
+//        this.students = students;
+//    }
+
+
+    @OneToMany(mappedBy = "course")
+    public Set<CourseAttendance> getCourseAttendances() {
+        return courseAttendances;
     }
 
-    public void setStudents(Set<Student> students) {
-        this.students = students;
+    public void setCourseAttendances(Set<CourseAttendance> courseAttendances) {
+        this.courseAttendances = courseAttendances;
     }
 
     @ManyToMany(mappedBy = "courses")

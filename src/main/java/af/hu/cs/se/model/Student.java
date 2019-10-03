@@ -2,6 +2,7 @@ package af.hu.cs.se.model;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,7 +19,9 @@ public class Student {
     private Integer doorNumber;
     private String birthDate;
 
-    private Set<Course> courses;
+    //private Set<Course> courses;
+
+    private Set<CourseAttendance> courseAttendances;
 
     private Set<Lecturer> lecturers;
 
@@ -80,13 +83,27 @@ public class Student {
         this.birthDate = birthDate;
     }
 
-    @ManyToMany(mappedBy = "students")
-    public Set<Course> getCourses() {
-        return courses;
+    public Student() {
+        courseAttendances = new HashSet<>();
     }
 
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
+//    @ManyToMany(mappedBy = "students")
+//    public Set<Course> getCourses() {
+//        return courses;
+//    }
+//
+//    public void setCourses(Set<Course> courses) {
+//        this.courses = courses;
+//    }
+
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    public Set<CourseAttendance> getCourseAttendances() {
+        return courseAttendances;
+    }
+
+    public void setCourseAttendances(Set<CourseAttendance> courseAttendances) {
+        this.courseAttendances = courseAttendances;
     }
 
     @ManyToMany(mappedBy = "students")
