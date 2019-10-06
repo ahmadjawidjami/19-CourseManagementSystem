@@ -3,6 +3,7 @@ package af.hu.cs.se.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,6 +19,7 @@ public class Student {
     private String street;
     private Integer doorNumber;
     private String birthDate;
+    private List<Hobby> hobbies;
 
     //private Set<Course> courses;
 
@@ -81,6 +83,19 @@ public class Student {
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @ElementCollection
+//    @CollectionTable(
+//            name = "student_hobbies",
+//            joinColumns = @JoinColumn(name = "student_id")
+//    )
+    public List<Hobby> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(List<Hobby> hobbies) {
+        this.hobbies = hobbies;
     }
 
     public Student() {

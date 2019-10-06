@@ -1,21 +1,43 @@
 package af.hu.cs.se.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class CourseAttendance implements Serializable {
 
+    private Long id;
+//    private CourseAttendanceKey id;
     private Student student;
     private Course course;
-
     private Date registrationDate;
 
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+
+    //    @EmbeddedId
+//    public CourseAttendanceKey getId() {
+//        return id;
+//    }
+//
+//    public void setId(CourseAttendanceKey id) {
+//        this.id = id;
+//    }
+
+   // @Id
+    //@MapsId("student_id")
     @ManyToOne
     @JoinColumn(name = "student_id")
     public Student getStudent() {
@@ -26,7 +48,8 @@ public class CourseAttendance implements Serializable {
         this.student = student;
     }
 
-    @Id
+    //@Id
+    //@MapsId("course_id")
     @ManyToOne
     @JoinColumn(name = "course_id")
     public Course getCourse() {
