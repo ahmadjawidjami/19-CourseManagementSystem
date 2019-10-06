@@ -9,7 +9,7 @@ import java.util.List;
 public class CourseAttendance implements Serializable {
 
     private Long id;
-//    private CourseAttendanceKey id;
+    //    private CourseAttendanceKey id;
     private Student student;
     private Course course;
     private Date registrationDate;
@@ -26,7 +26,6 @@ public class CourseAttendance implements Serializable {
     }
 
 
-
     //    @EmbeddedId
 //    public CourseAttendanceKey getId() {
 //        return id;
@@ -36,7 +35,7 @@ public class CourseAttendance implements Serializable {
 //        this.id = id;
 //    }
 
-   // @Id
+    // @Id
     //@MapsId("student_id")
     @ManyToOne
     @JoinColumn(name = "student_id")
@@ -66,5 +65,31 @@ public class CourseAttendance implements Serializable {
 
     public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CourseAttendance other = (CourseAttendance) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
 }
