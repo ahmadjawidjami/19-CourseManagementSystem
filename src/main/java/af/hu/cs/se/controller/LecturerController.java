@@ -1,8 +1,6 @@
 package af.hu.cs.se.controller;
 
-import af.hu.cs.se.model.ChooseCourse;
-import af.hu.cs.se.model.Course;
-import af.hu.cs.se.model.Lecturer;
+import af.hu.cs.se.model.*;
 import af.hu.cs.se.service.CourseService;
 import af.hu.cs.se.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,5 +98,25 @@ public class LecturerController {
         lecturerService.saveLecturer(lecturer);
 
         return "redirect:/lecturer/" + id + "/details";
+    }
+
+
+    @GetMapping("/lecturer/{id}/set-subject")
+    public String chooseSubjects(@PathVariable Long id, Model model) {
+
+        List<Subject> subjects = new ArrayList<>();
+
+        Lecturer lecturer = lecturerService.findLecturerById(id);
+
+        for (Course course : lecturer.getCourses()) {
+
+            subjects.addAll(course.getSubjects());
+        }
+
+        model.addAttribute("chooseSubject", new ChooseSubject());
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("lecturerId", id);
+
+        return "lecturer/choose-subject";
     }
 }

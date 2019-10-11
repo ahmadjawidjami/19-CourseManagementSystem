@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ChooseCourse {
 
-    List<Long> courseIds;
+    private List<Long> courseIds;
 
     public List<Long> getCourseIds() {
         return courseIds;

@@ -42,7 +42,8 @@ public class Subject {
         this.course = course;
     }
 
-    @OneToOne(mappedBy = "subject")
+    @ManyToOne
+    //@JoinColumn(name = "lecturer_id")
     public Lecturer getLecturer() {
         return lecturer;
     }

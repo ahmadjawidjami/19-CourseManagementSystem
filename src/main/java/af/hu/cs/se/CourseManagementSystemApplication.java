@@ -37,46 +37,5 @@ public class CourseManagementSystemApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-//        CourseAttendanceKey courseAttendanceKey = new CourseAttendanceKey();
-//        courseAttendanceKey.setStudentId(Long.valueOf(1));
-//        courseAttendanceKey.setCourseId(Long.valueOf(1));
-//
-//        CourseAttendance courseAttendance = new CourseAttendance();
-//
-//        courseAttendance.setId(courseAttendanceKey);
-//        courseAttendance.setRegistrationDate(Calendar.getInstance().getTime());
-//
-//        courseAttendanceRepository.save(courseAttendance);
-
-//        Hobby hobby1 = new Hobby();
-//        Hobby hobby2 = new Hobby();
-//        Hobby hobby3 = new Hobby();
-//
-//        hobby1.setName("Playing Football");
-//        hobby2.setName("Watching Football");
-//        hobby3.setName("Playing Football Game");
-//
-//        List<Hobby> hobbies = new ArrayList<>();
-//        hobbies.add(hobby1);
-//        hobbies.add(hobby2);
-//        hobbies.add(hobby3);
-//
-//        Student student = new Student();
-//        student.setFirstName("Ahmad");
-//        student.setLastName("Mahmoodi");
-//        student.setHobbies(hobbies);
-//
-//        studentRepository.save(student);
-
-        CourseAttendance courseAttendance = new CourseAttendance();
-
-        courseAttendance.setStudent(studentRepository.getOne(Long.valueOf(1)));
-        courseAttendance.setCourse(courseRepository.getOne(Long.valueOf(1)));
-
-        courseAttendance.setRegistrationDate(Calendar.getInstance().getTime());
-
-        courseAttendanceRepository.save(courseAttendance);
-
-
     }
 }

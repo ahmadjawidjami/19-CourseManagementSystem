@@ -9,6 +9,7 @@
 <h2>Details for <span th:text="${lecturer.firstName} + ' ' + ${lecturer.lastName}"></span></h2>
 
 <h2><a th:href="@{/lecturer/{id}/set-course(id = ${lecturerId})}">Choose Courses</a></h2>
+<h2><a th:href="@{/lecturer/{id}/set-subject(id = ${lecturerId})}">Choose Subjects</a></h2>
 
 <h2>Courses</h2>
 
