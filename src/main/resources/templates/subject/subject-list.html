@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h2><a th:href="@{/subject/register}">Add Subject</a></h2>
+<h2><a th:href="@{/subjects/register}">Add Subject</a></h2>
 
 <table border="1">
     <tr>
@@ -16,13 +16,13 @@
         <th colspan="2">Action</th>
     </tr>
 
-    <tr th:each="subject: ${subjects}">
-        <td th:text="${subject.id}"></td>
-        <td th:text="${subject.subjectName}"></td>
-        <td th:text="${subject.course.courseName}"></td>
-        <td><a th:href="@{'/subject/edit/' + ${subject.id} }">Edit</a></td>
+    <tr th:each="subjects: ${subjects}">
+        <td th:text="${subjects.id}"></td>
+        <td th:text="${subjects.subjectName}"></td>
+        <td th:text="${subjects.course.courseName}"></td>
+        <td><a th:href="@{'/subjects/edit/' + ${subjects.id} }">Edit</a></td>
         <td>
-            <form th:action="@{/subject/delete/{id}(id = ${subject.id})}" method="post">
+            <form th:action="@{/subjects/delete/{id}(id = ${subjects.id})}" method="post">
                 <button type="submit" onclick="return confirm('Do you really want ot delete?')">Delete</button>
             </form>
         </td>

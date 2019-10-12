@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:action="@{/subject/register}" method="post" th:object="${subject}">
+<form th:action="@{/subjects/register}" method="post" th:object="${subjects}">
     <input type="hidden" th:field="*{id}">
     Subject Name: <input type="text" th:field="*{subjectName}"/> <br>
 

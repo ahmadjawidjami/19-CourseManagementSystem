@@ -6,12 +6,12 @@
 </head>
 <body>
 
-<form th:action="@{/lecturer/{id}/set-subject(id = ${lecturerId})}" method="post" th:object="${chooseSubject}">
+<form th:action="@{/lecturer/{id}/set-subjects(id = ${lecturerId})}" method="post" th:object="${chooseSubject}">
 
-    <ul th:each="subject: ${subjects}">
+    <ul th:each="subjects: ${subjects}">
         <li>
-            <input type="checkbox" th:field="*{subjectIds}" th:value="${subject.id}">
-            <label th:text="${subject.subjectName}"></label>
+            <input type="checkbox" th:field="*{subjectIds}" th:value="${subjects.id}">
+            <label th:text="${subjects.subjectName}"></label>
         </li>
     </ul>
 

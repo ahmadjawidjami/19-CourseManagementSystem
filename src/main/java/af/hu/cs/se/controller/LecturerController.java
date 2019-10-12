@@ -3,6 +3,7 @@ package af.hu.cs.se.controller;
 import af.hu.cs.se.model.*;
 import af.hu.cs.se.service.CourseService;
 import af.hu.cs.se.service.LecturerService;
+import af.hu.cs.se.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,9 @@ public class LecturerController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private SubjectService subjectService;
 
     @GetMapping("/lecturer/register")
     public String getRegisterPage(Model model) {
@@ -101,7 +105,7 @@ public class LecturerController {
     }
 
 
-    @GetMapping("/lecturer/{id}/set-subject")
+    @GetMapping("/lecturer/{id}/set-subjects")
     public String chooseSubjects(@PathVariable Long id, Model model) {
 
         List<Subject> subjects = new ArrayList<>();
@@ -118,5 +122,27 @@ public class LecturerController {
         model.addAttribute("lecturerId", id);
 
         return "lecturer/choose-subject";
+    }
+
+    @PostMapping("/lecturer/{id}/set-subjects")
+    public String chooseSubjects(@PathVariable Long id, @ModelAttribute ChooseSubject chooseSubject) {
+        Lecturer lecturer = lecturerService.findLecturerById(id);
+        List<Subject> subjects = new ArrayList<>();
+
+        for (Long subjectId : chooseSubject.getSubjectIds()) {
+            subjects.add(subjectService.findSubjectById(subjectId));
+        }
+
+       // lecturer.setSubjects(new HashSet<>(subjects));
+
+        //lecturerService.saveLecturer(lecturer);
+
+        for (Subject subject : subjects) {
+            subject.setLecturer(lecturer);
+            subjectService.saveSubject(subject);
+        }
+
+
+        return "redirect:/lecturer/" + id + "/details";
     }
 }

@@ -1,7 +1,6 @@
 package af.hu.cs.se.model;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,7 +11,7 @@ public class Lecturer {
     private String firstName;
     private String lastName;
 
-    private Set<Subject> subject;
+    private Set<Subject> subjects;
 
     private Set<Student> students;
 
@@ -46,22 +45,22 @@ public class Lecturer {
 
 //    @OneToOne
 //    @JoinColumn(name = "subject_id")
-//    public Subject getSubject() {
-//        return subject;
+//    public Subject getSubjects() {
+//        return subjects;
 //    }
 //
-//    public void setSubject(Subject subject) {
-//        this.subject = subject;
+//    public void setSubjects(Subject subjects) {
+//        this.subjects = subjects;
 //    }
 
 
     @OneToMany(mappedBy = "lecturer", cascade = CascadeType.ALL)
-    public Set<Subject> getSubject() {
-        return subject;
+    public Set<Subject> getSubjects() {
+        return subjects;
     }
 
-    public void setSubject(Set<Subject> subject) {
-        this.subject = subject;
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
     }
 
     @ManyToMany
