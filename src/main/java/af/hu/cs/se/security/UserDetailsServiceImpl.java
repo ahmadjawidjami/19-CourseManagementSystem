@@ -1,4 +1,4 @@
-package af.hu.cs.se.service;
+package af.hu.cs.se.security;
 
 import af.hu.cs.se.model.User;
 import af.hu.cs.se.repository.UserRepository;
@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
 
-        UserDetailsImpl userDetails = new UserDetailsImpl();
+        UserPrincipal userDetails = new UserPrincipal();
 
         userDetails.setUser(user);
 

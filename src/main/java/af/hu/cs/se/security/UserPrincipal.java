@@ -1,7 +1,8 @@
-package af.hu.cs.se.service;
+package af.hu.cs.se.security;
 
 import af.hu.cs.se.model.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,7 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class UserDetailsImpl implements UserDetails {
+public class UserPrincipal implements UserDetails {
 
     private User user;
 
@@ -28,7 +29,14 @@ public class UserDetailsImpl implements UserDetails {
 //        authorities.add(new SimpleGrantedAuthority("USER"));
 //        return authorities;
 
-        return Collections.singletonList(new SimpleGrantedAuthority("USER"));
+        List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(user.getRoles());
+        grantedAuthorities.addAll(AuthorityUtils.commaSeparatedStringToAuthorityList(user.getPermissions()));
+
+//        return Collections.singletonList(new SimpleGrantedAuthority("USER"));
+
+        System.out.println(grantedAuthorities.toString());
+
+        return grantedAuthorities;
     }
 
     @Override

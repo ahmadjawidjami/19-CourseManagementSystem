@@ -6,6 +6,10 @@
 </head>
 <body>
 
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout">
+</form>
+
 <h2><a th:href="@{/student/register}">Add student</a></h2>
 
 <table border="1">
