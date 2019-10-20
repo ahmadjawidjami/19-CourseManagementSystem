@@ -1,6 +1,7 @@
 package af.hu.cs.se.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -9,9 +10,11 @@ public class User {
     private String username;
     private String password;
 
-    private String roles = "";
-    private String permissions = "";
+//    private String roles = "";
+//    private String permissions = "";
 
+    private Set<Role> roles;
+    private Set<Permission> permissions;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,19 +44,38 @@ public class User {
     }
 
 
-    public String getRoles() {
+//    public String getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(String roles) {
+//        this.roles = roles;
+//    }
+//
+//    public String getPermissions() {
+//        return permissions;
+//    }
+//
+//    public void setPermissions(String permissions) {
+//        this.permissions = permissions;
+//    }
+
+
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(String roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
-    public String getPermissions() {
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    public Set<Permission> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(String permissions) {
+    public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
 }

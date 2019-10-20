@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(new BCryptPasswordEncoder());
+        provider.setPasswordEncoder(bCryptPasswordEncoder());
 
         return provider;
     }
@@ -42,11 +42,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/student/delete/**").hasAuthority("DELETE_STUDENT")
                 .antMatchers("/student/**").hasAnyRole("STUDENT", "ADMIN")
                 .antMatchers("/lecturer/**").hasAnyRole("LECTURER", "ADMIN")
+                .antMatchers("/user/register").permitAll()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
                 .and()
                 .logout().permitAll()
                 .and()
                 .authorizeRequests().anyRequest().authenticated();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
