@@ -30,8 +30,7 @@ public class Role {
         this.roleName = roleName;
     }
 
-    @ManyToMany
-    @JoinTable(name = "users_roles")
+    @ManyToMany(mappedBy = "roles")
     public Set<User> getUsers() {
         return users;
     }

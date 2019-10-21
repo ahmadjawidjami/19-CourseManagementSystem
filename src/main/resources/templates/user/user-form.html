@@ -10,19 +10,21 @@
 <form th:action="@{/user/register}" method="post" th:object="${user}">
     <!--<input type="hidden" th:field="*{id}">-->
     Username: <input type="text" th:field="*{username}"/> <br>
-    Password: <input type="text" th:field="*{password}"/> <br>
+    Password: <input type="password" th:field="*{password}"/> <br>
 Roles:
     <ul th:each="role: ${roles}">
         <li>
-            <input type="checkbox" th:value="${role.id}">
+            <input type="checkbox" name="roleIds" th:value="${role.id}">
             <label th:text="${role.roleName}"></label>
         </li>
     </ul>
 
     Roles:
+    <input type="hidden" name="permissionIds">
+
     <ul th:each="permission: ${permissions}">
         <li>
-            <input type="checkbox" th:value="${permission.id}">
+            <input type="checkbox" name="permissionIds" th:value="${permission.id}">
             <label th:text="${permission.permissionName}"></label>
         </li>
     </ul>

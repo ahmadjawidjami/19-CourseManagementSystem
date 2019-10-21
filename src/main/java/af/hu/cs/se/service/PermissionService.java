@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface PermissionService {
     List<Permission> findAllPermissions();
+
+    List<Permission> findAllPermissionsById(List<Integer> permissionIds);
 }

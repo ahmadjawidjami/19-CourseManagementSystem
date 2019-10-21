@@ -61,7 +61,7 @@ public class User {
 //    }
 
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     public Set<Role> getRoles() {
         return roles;
     }
@@ -70,7 +70,7 @@ public class User {
         this.roles = roles;
     }
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     public Set<Permission> getPermissions() {
         return permissions;
     }

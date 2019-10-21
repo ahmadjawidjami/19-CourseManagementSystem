@@ -16,4 +16,9 @@ public class PermissionServiceImpl implements PermissionService {
     public List<Permission> findAllPermissions() {
         return permissionRepository.findAll();
     }
+
+    @Override
+    public List<Permission> findAllPermissionsById(List<Integer> permissionIds) {
+        return permissionRepository.findAllById(permissionIds);
+    }
 }

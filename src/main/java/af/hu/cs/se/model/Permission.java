@@ -27,8 +27,7 @@ public class Permission {
     public void setPermissionName(String permissionName) {
         this.permissionName = permissionName;
     }
-    @ManyToMany
-    @JoinTable(name = "users_permissions")
+    @ManyToMany(mappedBy = "permissions")
     public Set<User> getUsers() {
         return users;
     }
