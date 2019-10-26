@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-public class Student {
+public class Student extends User {
 
 
-    private Long id;
+//    private Long id;
 
     private String firstName;
     private String lastName;
@@ -27,15 +27,15 @@ public class Student {
 
     private Set<Lecturer> lecturers;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public String getFirstName() {
         return firstName;

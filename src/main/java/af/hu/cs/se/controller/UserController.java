@@ -7,6 +7,7 @@ import af.hu.cs.se.service.PermissionService;
 import af.hu.cs.se.service.RoleService;
 import af.hu.cs.se.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -60,9 +62,10 @@ public class UserController {
 
         List<Role> roles = roleService.findAllRolesByIds(roleIds);
         user.setRoles(new HashSet<>(roles));
+        user.encodePassword();
 
 
-        userService.createUser(user);
+        //userService.createUser(user);
 
        // System.out.println();
         System.out.println(roles.get(0).getRoleName());
@@ -70,5 +73,24 @@ public class UserController {
         userService.createUser(user);
 
         return "redirect:/student/list";
+    }
+
+    @GetMapping("/login/success")
+    public String afterLogin() {
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findUserByUsername(username);
+
+        Set<Role> userRoles = user.getRoles();
+
+        if (userRoles.contains(roleService.findRoleByRoleName("ROLE_ADMIN"))) {
+            return "redirect:/admin";
+        } else if (userRoles.contains(roleService.findRoleByRoleName("ROLE_LECTURER"))) {
+            return "redirect:/lecturer/" + user.getId() + "/details";
+        } else if (userRoles.contains(roleService.findRoleByRoleName("ROLE_STUDENT"))) {
+            return "redirect:/student/" + user.getId() + "/details";
+        }
+
+        return "redirect:/";
     }
 }

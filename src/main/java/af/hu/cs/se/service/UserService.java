@@ -5,4 +5,6 @@ import af.hu.cs.se.model.User;
 public interface UserService {
 
     void createUser(User user);
+
+    User findUserByUsername(String username);
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -41,14 +42,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/student/edit/**").hasAuthority("EDIT_STUDENT")
                 .antMatchers("/student/delete/**").hasAuthority("DELETE_STUDENT")
                 .antMatchers("/student/**").hasAnyRole("STUDENT", "ADMIN")
+                .antMatchers("/lecturer/register").permitAll()
                 .antMatchers("/lecturer/**").hasAnyRole("LECTURER", "ADMIN")
                 .antMatchers("/user/register").permitAll()
                 .and()
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin().loginPage("/login").defaultSuccessUrl("/login/success").permitAll()
                 .and()
                 .logout().permitAll()
                 .and()
                 .authorizeRequests().anyRequest().authenticated();
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Bean

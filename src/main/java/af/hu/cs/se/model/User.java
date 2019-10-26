@@ -1,9 +1,12 @@
 package af.hu.cs.se.model;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
     private Long id;
@@ -78,4 +81,10 @@ public class User {
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
+
+    public void encodePassword() {
+        this.password = new BCryptPasswordEncoder().encode(this.password);
+    }
 }
+
+

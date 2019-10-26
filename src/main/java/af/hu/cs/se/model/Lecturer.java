@@ -4,9 +4,9 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Lecturer {
+public class Lecturer extends User {
 
-    private Long id;
+//    private Long id;
 
     private String firstName;
     private String lastName;
@@ -17,15 +17,15 @@ public class Lecturer {
 
     private Set<Course> courses;
 
-    @Id
-    @GeneratedValue
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    @Id
+//    @GeneratedValue
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public String getFirstName() {
         return firstName;

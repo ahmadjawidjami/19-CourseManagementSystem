@@ -1,14 +1,17 @@
 package af.hu.cs.se.controller;
 
 import af.hu.cs.se.model.*;
-import af.hu.cs.se.service.CourseService;
-import af.hu.cs.se.service.LecturerService;
-import af.hu.cs.se.service.SubjectService;
+import af.hu.cs.se.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,19 +29,49 @@ public class LecturerController {
     @Autowired
     private SubjectService subjectService;
 
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private PermissionService permissionService;
+
     @GetMapping("/lecturer/register")
     public String getRegisterPage(Model model) {
 
         model.addAttribute("lecturer", new Lecturer());
+        model.addAttribute("roles", roleService.findAllRoles());
+        model.addAttribute("permissions", permissionService.findAllPermissions());
 
         return "lecturer/lecturer-form";
     }
 
 
     @PostMapping("/lecturer/register")
-    public String register(@ModelAttribute Lecturer lecturer) {
+    public String register(@ModelAttribute Lecturer lecturer, HttpServletRequest request) {
 
+//        List<Role> roles = roleService.findAllRoles();
+//
+        Role ROLE_LECTURER = roleService.findRoleByRoleName("ROLE_LECTURER");
+
+        Set<Role> lecturerRoles = new HashSet<>();
+        lecturerRoles.add(ROLE_LECTURER);
+
+        lecturer.setRoles(lecturerRoles);
+        lecturer.setPermissions(new HashSet<>());
+        String password = lecturer.getPassword();
+        lecturer.encodePassword();
         lecturerService.saveLecturer(lecturer);
+
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(lecturer.getUsername(), password);
+        authenticationToken.setDetails(request);
+
+        Authentication authentication = authenticationManager.authenticate(authenticationToken);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return "redirect:/lecturer/list";
     }
